@@ -1,0 +1,6 @@
+repositories:
+  ultralytics_ros:
+    type: git
+    url: https://github.com/LCAS/ultralytics_ros.git
+    version: v0.0.0
+    depth: 1
