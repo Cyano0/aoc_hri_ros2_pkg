@@ -1,16 +1,22 @@
 #!/bin/bash
 
-# It sets the shell options to:
-# -e: Exit immediately if a command exits with a non-zero status.
-# -x: Print commands and their arguments as they are executed.
 set -e -x
 
+echo "Running rosdep update..."
 rosdep update
 
-sudo apt-get update 
+echo "Updating apt-get packages..."
+apt-get update
 
-cd ${WORKSPACES}/src
-vcs import < ${WORKSPACES}/src/repos/external.repos
+# Navigate to the src directory
+cd "$(pwd)/src"
+
+# Import repositories using vcs
+echo "Importing repositories with vcs..."
+vcs import < ../.devcontainer/repos/external.repos
+
+# Install dependencies
+echo "Installing dependencies with rosdep..."
 rosdep install --from-paths . -i -y
 
-
+echo "Setup complete."

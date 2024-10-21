@@ -44,9 +44,6 @@ RUN cd /tmp/src && rosdep install --from-paths . --ignore-src -r -y && cd && rm 
 ############################################################################################################
 FROM depbuilder as final
 
-# Copy the full src directory into the final stage
-COPY ./src ${WORKSPACES}/src
-
 # add user ros with sudo rights if it doesn't exist
 RUN if ! id ros; then \
         useradd -ms /bin/bash ros && echo "ros:ros" | chpasswd && adduser ros sudo; \
