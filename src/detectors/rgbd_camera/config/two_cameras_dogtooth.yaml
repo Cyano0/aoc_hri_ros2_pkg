@@ -1,0 +1,34 @@
+tracker_depth_node:
+  ros__parameters:
+    use_sim_time: false
+    debug: false
+    yolo_model: yolov8m-seg.pt
+    input_topic_1: /front_camera/image_raw
+    result_topic_1: /front_yolo_result
+    result_image_topic_1: /front_yolo_image
+    input_topic_2: /back_camera/image_raw
+    result_topic_2: /back_yolo_result
+    result_image_topic_2: /back_yolo_image
+    # input_topic_1: /front/zed_node_1/rgb_raw/image_raw_color
+    # result_topic_1: /front_detection_result
+    # result_image_topic_1: /front_yolo_image
+    # input_topic_2: /back/zed_node_0/rgb_raw/image_raw_color
+    # result_topic_2: /back_yolo_result
+    # result_image_topic_2: /back_yolo_image
+    conf_thres: 0.25
+    iou_thres: 0.45
+    max_det: 300
+    tracker: bytetrack.yaml
+    device: ""
+    result_conf: true
+    result_line_width: 1
+    result_font_size: 1
+    result_font: Arial.ttf
+    result_labels: true
+    result_boxes: true
+    input_depth_topic_2: /back_camera/depth
+    input_depth_topic_1: /front_camera/depth
+    # input_depth_topic_1: /front/zed_node_1/depth/depth_registered
+    # input_depth_topic_2: /back/zed_node_0/depth/depth_registered
+    camera_parameters_1: [260.4500732421875, 260.4500732421875, 339.9864196777344, 190.66050720214844]
+    camera_parameters_2: [262.4055480957031, 262.4055480957031, 342.05328369140625, 195.10769653320312]
