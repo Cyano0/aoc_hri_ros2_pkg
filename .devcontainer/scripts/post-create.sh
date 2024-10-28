@@ -1,5 +1,6 @@
 #!/bin/bash
 
+set -e -x
 
 function add_config_if_not_exist {
     if ! grep -F -q "$1" $HOME/.bashrc; then
