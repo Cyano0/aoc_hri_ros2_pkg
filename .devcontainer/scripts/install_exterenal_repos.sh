@@ -13,7 +13,7 @@ cd "$(pwd)/src"
 
 # Import repositories using vcs
 echo "Importing repositories with vcs..."
-vcs import < ../.devcontainer/repos/external.repos
+vcs import --force --recursive < ../.devcontainer/repos/external.repos 
 
 # Install dependencies
 echo "Installing dependencies with rosdep..."
