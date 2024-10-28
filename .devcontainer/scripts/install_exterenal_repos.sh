@@ -14,12 +14,9 @@ apt-get update
 # Navigate to the src directory of the current workspace
 cd "$(pwd)/src"
 
-if [ ! -d "ultralytics_ros" ]; then
-    echo "Cloning ultralytics_ros repository..."
-    GIT_LFS_SKIP_SMUDGE=1 git clone -b humble-devel https://github.com/LCAS/ultralytics_ros.git
-else
-    echo "ultralytics_ros directory already exists, skipping clone."
-fi
+# Import repositories using vcs
+echo "Importing repositories with vcs..."
+vcs import --force --recursive < ../.devcontainer/repos/external.repos 
 
 # Install any dependencies specified in the cloned repositories' package.xml files
 # The '-r' flag makes the process recursive
