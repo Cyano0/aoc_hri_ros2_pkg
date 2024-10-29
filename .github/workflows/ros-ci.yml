@@ -49,15 +49,9 @@ jobs:
     container:
       image: ${{ matrix.docker_image }}
     steps:
-      - name: Install Git
-        run: |
-          apt-get update
-          apt-get install -y git
       - uses: actions/checkout@v3
         with:
-          submodules: true  # Fetches submodules during checkout
-      - name: Ensure submodules are initialized
-        run: git submodule update --init --recursive
+          submodules: false  # Prevents attempting to fetch submodules
       - name: setup ROS environment
         uses: LCAS/setup-ros@master
         with:
