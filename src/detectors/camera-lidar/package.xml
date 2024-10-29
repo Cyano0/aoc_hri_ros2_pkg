@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>human_camlidar_det_uol</name>
+  <version>0.0.0</version>
+  <description>Human RGB-D detection package</description>
+
+  <maintainer email="you@example.com">Your Name</maintainer>
+
+  <license>Apache-2.0</license>
+
+  <buildtool_depend>ament_cmake</buildtool_depend>
+  <buildtool_depend>rosidl_default_generators</buildtool_depend>
+  <buildtool_depend>ament_python</buildtool_depend>
+
+  <build_depend>rclcpp</build_depend>
+  <build_depend>rclpy</build_depend>
+  <build_depend>geometry_msgs</build_depend>
+  <build_depend>sensor_msgs</build_depend>
+  <build_depend>std_msgs</build_depend>
+  <build_depend>vision_msgs</build_depend>
+  <build_depend>visualization_msgs</build_depend>
+  <build_depend>cv_bridge</build_depend>
+  <build_depend>image_geometry</build_depend>
+  <build_depend>message_filters</build_depend>
+  <build_depend>pcl_conversions</build_depend>
+  <build_depend>pcl_ros</build_depend>
+  <build_depend>tf2_eigen</build_depend>
+  <build_depend>tf2_ros</build_depend>
+  <build_depend>ultralytics_ros</build_depend>
+  <build_depend>human_tracker_uol</build_depend>
+
+  <exec_depend>rclcpp</exec_depend>
+  <exec_depend>rclpy</exec_depend>
+  <exec_depend>geometry_msgs</exec_depend>
+  <exec_depend>sensor_msgs</exec_depend>
+  <exec_depend>std_msgs</exec_depend>
+  <exec_depend>vision_msgs</exec_depend>
+  <exec_depend>visualization_msgs</exec_depend>
+  <exec_depend>cv_bridge</exec_depend>
+  <exec_depend>image_geometry</exec_depend>
+  <exec_depend>message_filters</exec_depend>
+  <exec_depend>pcl_conversions</exec_depend>
+  <exec_depend>pcl_ros</exec_depend>
+  <exec_depend>tf2_eigen</exec_depend>
+  <exec_depend>tf2_ros</exec_depend>
+  <exec_depend>ultralytics_ros</exec_depend>
+  <exec_depend>human_tracker_uol</exec_depend>
+  <member_of_group>rosidl_interface_packages</member_of_group>
+  
+  <export>
+    <build_type>ament_cmake</build_type>
+  </export>
+
+</package>

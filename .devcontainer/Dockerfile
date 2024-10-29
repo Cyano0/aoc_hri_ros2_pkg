@@ -20,7 +20,8 @@ RUN apt-get update \
     git \
     wget \
     python3-pip \
-    python3-rosdep
+    python3-rosdep \
+    python3-colcon-common-extensions
 
 
 # Install all required APT packages
@@ -49,10 +50,12 @@ RUN if ! id ros; then \
         useradd -ms /bin/bash ros && echo "ros:ros" | chpasswd && adduser ros sudo; \
         echo "ALL ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers; \
         echo "source /opt/ros/humble/setup.bash" >> /etc/bash.bashrc; \
+        echo "source $WORKSPACES/install/setup.bash" >> $WORKSPACES/.bashrc; \
     else echo "user ros already exists"; \
     fi
 
 # add sudo without password
 ENV DEBIAN_FRONTEND=noninteractive
+RUN echo "source $WORKSPACES/install/setup.bash" >> /workspaces/aoc_hri_ros2_pkg/.bashrc
 
 USER ros
