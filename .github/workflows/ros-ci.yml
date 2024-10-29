@@ -50,8 +50,6 @@ jobs:
       image: ${{ matrix.docker_image }}
     steps:
       - uses: actions/checkout@v3
-        with:
-          submodules: false  # Prevents attempting to fetch submodules
       - name: setup ROS environment
         uses: LCAS/setup-ros@master
         with:
