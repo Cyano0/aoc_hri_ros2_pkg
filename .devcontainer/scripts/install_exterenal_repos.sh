@@ -16,7 +16,7 @@ cd "$(pwd)/src"
 
 # Import repositories using vcs
 echo "Importing repositories with vcs..."
-vcs import --force --recursive < ../.devcontainer/repos/external.repos 
+vcs import < ../.devcontainer/repos/external.repos 
 
 # Install any dependencies specified in the cloned repositories' package.xml files
 # The '-r' flag makes the process recursive
