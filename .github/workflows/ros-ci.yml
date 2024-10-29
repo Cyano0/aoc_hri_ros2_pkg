@@ -52,6 +52,9 @@ jobs:
         FORCE_JAVASCRIPT_ACTIONS_TO_NODE20: true
     steps:
       - uses: actions/checkout@v3
+      - name: Import packages without submodules
+        run: |
+          vcs import src/ < package.repo
       - name: setup ROS environment
         uses: LCAS/setup-ros@master
         with:
