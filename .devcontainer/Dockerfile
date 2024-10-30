@@ -43,28 +43,6 @@ RUN cd /tmp/src && rosdep install --from-paths . --ignore-src -r -y && cd && rm 
 ############################################################################################################
 FROM depbuilder as final
 
-# add user ros with sudo rights if it doesn't exist
-# RUN if ! id ros; then \
-#         useradd -ms /bin/bash ros && echo "ros:ros" | chpasswd && adduser ros sudo; \
-#         echo "ALL ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers; \
-#         echo "source /opt/ros/humble/setup.bash" >> /etc/bash.bashrc; \
-#     else echo "user ros already exists"; \
-#     fi
-
-# ENV DEBIAN_FRONTEND=noninteractive
-
 USER $USER
-
-
-# ARG AOC_HRI_PKG_DIR=${COLCON_WS}/src/aoc_hri_ros2_pkg
-# ENV AOC_HRI_PKG_DIR=${AOC_HRI_PKG_DIR}
-
-# RUN chown -R ${USER}:${USER} ${COLCON_WS}
-
-# copy entire COLCON_WS
-# Copies the contents of the current directory to the specified service directory
-# within the container, setting the ownership to the user specified by the $USER
-# environment variable.
-# COPY --chown=$USER . ${AOC_HRI_PKG_DIR}
 
 CMD ["/bin/bash"]
