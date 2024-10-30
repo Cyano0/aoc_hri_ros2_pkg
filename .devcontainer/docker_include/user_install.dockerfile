@@ -17,6 +17,6 @@ COPY .devcontainer/scripts/install_external_ros_packages.sh ${COLCON_WS}/src/ins
 # Make the script executable and run it, then remove it
 RUN /bin/bash -c '${COLCON_WS}/src/install_external_ros_packages.sh ${COLCON_WS}' && \
     rm -f ${COLCON_WS}/src/install_external_ros_packages.sh && \
-    rm -f -r ${COLCON_WS}/src/repos
+    sudo rm -f -r ${COLCON_WS}/src/repos
 
 USER root

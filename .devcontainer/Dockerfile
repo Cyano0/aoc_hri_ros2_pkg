@@ -45,4 +45,7 @@ FROM depbuilder as final
 
 USER $USER
 
+# include the file to configure the user's .bashrc
+INCLUDE .devcontainer/docker_include/bashrc_config.dockerfile
+
 CMD ["/bin/bash"]
