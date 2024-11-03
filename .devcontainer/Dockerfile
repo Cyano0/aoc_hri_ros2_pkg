@@ -32,6 +32,9 @@ COPY . /tmp/src
 # remove everything that isn't package.xml
 RUN find /tmp/src -type f \! -name "package.xml" -print | xargs rm -rf
 
+# Remove unnecessary files or temporary files created during the setup
+RUN rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
+
 ############################################################################################################
 # install all dependencies listed in the package.xml
 FROM user_space as depbuilder
