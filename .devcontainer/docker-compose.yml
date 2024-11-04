@@ -38,7 +38,7 @@ services:
     volumes:
       - /etc/timezone:/etc/timezone:ro
       - /etc/localtime:/etc/localtime:ro
-      - ../:/home/ros/aoc_hri_ws/src/aoc_hri_ros2_pkg
+      - ../:/home/ros/aoc_hri_ws/src/aoc_hri_ros2_pkg:rw
       - /media:/media:rw
 
 networks:
