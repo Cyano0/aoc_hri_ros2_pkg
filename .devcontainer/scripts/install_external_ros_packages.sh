@@ -23,6 +23,6 @@ vcs import < ${WS}/src/repos/external.repos
 rosdep install -r -y -i --from-paths .
 
 # Install Python dependencies for the ultralytics_ros package
-python3 -m pip install -no-cache-dir -r ultralytics_ros/requirements.txt
+python3 -m pip install --no-cache-dir -r ultralytics_ros/requirements.txt
 
 echo "Setup complete."

@@ -11,7 +11,8 @@ ENV GIT_LFS_SKIP_SMUDGE=1
 # USER $USER
 
 # Install external repos 
-COPY .devcontainer/repos/external.repos ${COLCON_WS}/src/repos/external.repos
+COPY .devcontainer/repos ${COLCON_WS}/src/repos
+
 # Copy the script to checkout public git repos and make it executable
 COPY .devcontainer/scripts/install_external_ros_packages.sh ${COLCON_WS}/src/install_external_ros_packages.sh
 # Make the script executable and run it, then remove it

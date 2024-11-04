@@ -32,9 +32,6 @@ COPY . /tmp/src
 # remove everything that isn't package.xml
 RUN find /tmp/src -type f \! -name "package.xml" -print | xargs rm -rf
 
-# Remove unnecessary files or temporary files created during the setup
-RUN rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
-
 ############################################################################################################
 # install all dependencies listed in the package.xml
 FROM user_space as depbuilder
@@ -42,6 +39,9 @@ FROM user_space as depbuilder
 COPY --from=sourcefilter /tmp/src /tmp/src
 RUN rosdep update && apt-get update
 RUN cd /tmp/src && rosdep install --from-paths . --ignore-src -r -y && cd && rm -rf /tmp/src
+
+# Remove unnecessary files or temporary files created during the setup
+RUN rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 ############################################################################################################
 FROM depbuilder as final
