@@ -8,7 +8,7 @@ RUN wget https://github.com/git-lfs/git-lfs/releases/download/v3.5.1/git-lfs-lin
 # Set GIT_LFS_SKIP_SMUDGE environment variable to avoid downloading LFS files during clone
 ENV GIT_LFS_SKIP_SMUDGE=1
 
-USER $USER
+# USER $USER
 
 # Install external repos 
 COPY .devcontainer/repos/external.repos ${COLCON_WS}/src/repos/external.repos
@@ -17,6 +17,6 @@ COPY .devcontainer/scripts/install_external_ros_packages.sh ${COLCON_WS}/src/ins
 # Make the script executable and run it, then remove it
 RUN /bin/bash -c '${COLCON_WS}/src/install_external_ros_packages.sh ${COLCON_WS}' && \
     rm -f ${COLCON_WS}/src/install_external_ros_packages.sh && \
-    sudo rm -f -r ${COLCON_WS}/src/repos
+    rm -f -r ${COLCON_WS}/src/repos
 
-USER root
+# USER root
