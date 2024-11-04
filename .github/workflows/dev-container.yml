@@ -24,26 +24,26 @@ jobs:
         with:
           node-version: "^16.13.0 || >=18.0.0"
       # logging into github with access to other private repositories if neded
-      - uses: de-vri-es/setup-git-credentials@v2
-        with:
-          credentials: ${{ secrets.LCAS_GITHUB_CREDENTIALS }}
+      # - uses: de-vri-es/setup-git-credentials@v2
+      #   with:
+      #     credentials: ${{ secrets.LCAS_GITHUB_CREDENTIALS }}
       - name: Checkout (GitHub)
         uses: actions/checkout@v3
       - name: What
         run: echo "BRANCH=${GITHUB_REF##*/}" >> $GITHUB_ENV
-      - name: Docker Login LCAS
-        if: ${{ github.event_name != 'pull_request' }}
-        uses: docker/login-action@v3
-        with:
-          registry: lcas.lincoln.ac.uk
-          username: ${{ secrets.LCAS_REGISTRY_PUSHER }}
-          password: ${{ secrets.LCAS_REGISTRY_TOKEN }}
-      - name: Docker Login dockerhub
-        if: ${{ github.event_name != 'pull_request' }}
-        uses: docker/login-action@v3
-        with:
-          username: ${{ secrets.DOCKERHUB_USER }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      # - name: Docker Login LCAS
+      #   if: ${{ github.event_name != 'pull_request' }}
+      #   uses: docker/login-action@v3
+      #   with:
+      #     registry: lcas.lincoln.ac.uk
+      #     username: ${{ secrets.LCAS_REGISTRY_PUSHER }}
+      #     password: ${{ secrets.LCAS_REGISTRY_TOKEN }}
+      # - name: Docker Login dockerhub
+      #   if: ${{ github.event_name != 'pull_request' }}
+      #   uses: docker/login-action@v3
+      #   with:
+      #     username: ${{ secrets.DOCKERHUB_USER }}
+      #     password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: "image name from repo name"
         id: docker_image_name
