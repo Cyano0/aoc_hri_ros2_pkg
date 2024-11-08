@@ -7,28 +7,62 @@ on:
   push:
     branches:
       - main
+    tags:
+      - '*'
 
 jobs:
-  build_devcontainer:
-    runs-on: ubuntu-latest
+  build:
+    runs-on: lcas
     strategy:
       matrix:
-        config: 
-          - default
-          - cuda-opengl
+        include:
+          - configFile: .devcontainer/cuda-opengl/devcontainer.json
+            imageTag: cuda-opengl-hri
     steps:
-      - name: Checkout from github
+      - name: Node Js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "^16.13.0 || >=18.0.0"
+      # logging into github with access to other private repositories if neded
+      # - uses: de-vri-es/setup-git-credentials@v2
+      #   with:
+      #     credentials: ${{ secrets.LCAS_GITHUB_CREDENTIALS }}
+      - name: Checkout (GitHub)
         uses: actions/checkout@v3
-      - name: extract the github reference
+      - name: What
         run: echo "BRANCH=${GITHUB_REF##*/}" >> $GITHUB_ENV
+      # - name: Docker Login LCAS
+      #   if: ${{ github.event_name != 'pull_request' }}
+      #   uses: docker/login-action@v3
+      #   with:
+      #     registry: lcas.lincoln.ac.uk
+      #     username: ${{ secrets.LCAS_REGISTRY_PUSHER }}
+      #     password: ${{ secrets.LCAS_REGISTRY_TOKEN }}
+      # - name: Docker Login dockerhub
+      #   if: ${{ github.event_name != 'pull_request' }}
+      #   uses: docker/login-action@v3
+      #   with:
+      #     username: ${{ secrets.DOCKERHUB_USER }}
+      #     password: ${{ secrets.DOCKERHUB_TOKEN }}
+
       - name: "image name from repo name"
         id: docker_image_name
         run: echo "docker_image=${{ github.repository }}" | tr '[:upper:]' '[:lower:]' |sed 's/[^0-9,a-z,A-Z,=,_,\/]/-/g' >>${GITHUB_OUTPUT}
+
+      # - name: Build, run and push dev container task
+      #   if: ${{ github.event_name != 'pull_request' }}
+      #   uses: devcontainers/ci@v0.3
+      #   with:
+      #     imageName: lcas.lincoln.ac.uk/devcontainer/${{ steps.docker_image_name.outputs.docker_image }}
+      #     push: always
+      #     configFile: ${{ matrix.configFile }}
+      #     imageTag: ${{ matrix.imageTag }}-${{ env.BRANCH }}
+
       - name: Build and run dev container task
+        if: ${{ github.event_name == 'pull_request' }}
         uses: devcontainers/ci@v0.3
         with:
           imageName: lcas.lincoln.ac.uk/devcontainer/${{ steps.docker_image_name.outputs.docker_image }}
-          configFile: ./.devcontainer/${{ matrix.config }}/devcontainer.json
           push: never
-          imageTag: ${{ matrix.config }}-${{ env.BRANCH }}
-          #runCmd: "bash .devcontainer/run-ci.sh"
+          configFile: ${{ matrix.configFile }}
+          imageTag: ${{ matrix.imageTag }}-pr-ci

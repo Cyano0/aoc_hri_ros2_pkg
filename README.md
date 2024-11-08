@@ -1,82 +1,99 @@
-## ROS2 Package Template
+# aoc_hri
+Repository with ROS2 packages that cover the human-robot interaction component of the Agri-Opencore project
 
-This repository serves as a template for creating ROS2 packages, equipped with a comprehensive CI workflow and devcontainer configuration.
 
-### Development Environment Setup
+## SETUP 
 
-To begin development in a containerized environment:
+### PREREQUISITES:
+- Ubuntu 22.04
+- Ros2 Humble
 
-1. **Use this repo as a template:**
-   The best way to work with this repo is to use it as a template for your ROS package development, to do so, in the top right corner select `Use this template`:
+### Packages List
+- Detectors:
+    - RGBD_camera :
+      - package name: human_rgbd_det_uol
+      - contains all the detectors/launch/config for rgbd camera
+  - Fisheye_camera:
+    - package name: human_fisheye_det_uol
+    - contains all the detectors/launch/config for fisheye camera
+  - Lidar:
+    - package name: human_lidar_det_uol
+    - contains all the detectors/launch/config for lidar
+  - Camera-Lidar:
+    - package name: human_camlidar_det_uol
+    - contains all the detectors/launch/config for using lidar + camera (fisheye _ rgbd)
+- Trackers:
+    - package name: human_tracker_uol
+    - contains all the detectors/launch/config for trackers
+- Visualiser: (part of Tracker) 
+    - package name: human_visualiser_uol
+    - contains all the detectors/launch/config for sending Markers (e.g. bounding box) to visualise on Rviz
+- Rosbag:
+    - rosbags here
+- Docker:
+    - dockefile here
+
+  Please refer to the README file of each package for detailed information.
+
+### Git clone repositories
+1. Create a ROS2 workspace and a source directory (`src`):
+
+```bash
+mkdir -p ~/{ROS2_WORKSPACE}/src
+```
+2. In the `src` directory, clone this [aoc_hri] repository (https://github.com/LCAS/aoc_hri.git) repository:
+
+```bash
+cd ~/{ROS2_WORKSPACE}/src
+git clone git@github.com:LCAS/human_detection_rgbd_camera.git
+```
+3. Additional repository:
    
-   ![2024-04-24](https://github.com/LCAS/ros2_pkg_template/assets/47870260/2aba3511-7a3f-4e88-a3c1-26ba2be48b45)
+    3.1 In the `src` directory, clone the [ultralytics_ros](https://github.com/Alpaca-zip/ultralytics_ros.git) repository. Further, install dependencies and build the workspace: 
 
-   Then in the next step specify the owner and the package name as shown below:
-   
-   ![template](https://github.com/LCAS/ros2_pkg_template/assets/47870260/b564c9d7-81d4-4dc1-baba-9355b59d09c1)
-   
+    ```
+    cd ~/{ROS2_WORKSPACE}/src
+    GIT_LFS_SKIP_SMUDGE=1 git clone -b humble-devel https://github.com/Alpaca-zip/ultralytics_ros.git 
+    rosdep install -r -y -i --from-paths .
+    python3 -m pip install -r ultralytics_ros/requirements.txt 
+    cd ~/{ROS2_WORKSPACE} && $ colcon build
+    source ~/.bashrc
+    ```
 
-3. **Open in Visual Studio Code:**
-   Open the cloned repository in VSCode. VSCode will prompt you to "Reopen in Container." Alternatively, you can use the command palette (`Ctrl+Shift+P`) and search for the "reopen in container" command.
+      **Note**: make sure **Git Large File Storage (LFS)** is installed already as it is required by **ultralytics_ros **. 
 
-   ![Reopen in Container](https://github.com/LCAS/ros2_pkg_template/assets/47870260/52b26ae9-ffe9-4e7c-afb9-88cee88f870f)
+    3.2 In the `src` directory, install the [mmdetection3D](https://github.com/open-mmlab/mmdetection3d?tab=readme-ov-file) repository. Please follow the instruction: https://mmdetection3d.readthedocs.io/en/latest/get_started.html.
 
-   Then this will promote you with the following two options:
-   ![image](https://github.com/user-attachments/assets/d0885c75-59de-4b5d-a8b7-c38bf02444d4)
+5. Additional information:
 
-   You may select the base image according to your targeted application. For instance, if the nodes do not require GPU processing tasks, it is preferable to use the default devcontainer as it is more lightweight.
-
-5. **Container Setup:**
-   Once reopened in the container, VSCode will initiate the building process and pull all necessary dependencies. You can monitor the building log within VSCode.
-
-   ![Devcontainer Log](https://github.com/LCAS/ros2_pkg_template/assets/47870260/4a01e140-972e-4f10-b866-acaabf6b4cfd)
-
-6. **Verify Container Environment:**
-   After the build completes, VSCode will connect to the container. You can verify that you are within the container environment.
-
-   ![In Container](https://github.com/LCAS/ros2_pkg_template/assets/47870260/9efec878-5d83-4aed-a9d0-8a1cf6bbf655)
-
-### Devcontainer Features
-
-The devcontainer includes a light desktop interface. To utilize this feature:
-
-1. **Configuration:**
-   Add the following features to the devcontainer configuration:
-
-   ```json
-   "features": {
-       "ghcr.io/LCAS/devcontainer-features/desktop-lite:1": {}
-   },
-   "forwardPorts": [6080, 5801],
-   "portsAttributes": {
-       "6080": {
-           "label": "desktop"
-       },
-       "5801": {
-           "label": "desktop opengl"
-       }
-   }
-   ```
-
-2. **Accessing the Desktop Interface:**
-   Open the user interface by navigating to the PORTS tab in VSCode, selecting port `6080` (or port `5801` for the CUDA-OpenGL version), and opening it in the browser.
-
-   ![Open in Browser](https://github.com/LCAS/ros2_pkg_template/assets/47870260/b61f4c95-453b-4c92-ad66-5133c91abb05)
-
-3. **Connecting to the Interface:**
-   Click on "Connect" and use the password `vscode` to access the desktop interface.
-
-   ![NoVNC](https://github.com/LCAS/ros2_pkg_template/assets/47870260/71246a4c-fd02-4196-b390-b18804f9cd4e)
-
-### Enjoy Development!
-
-By leveraging this setup, you can develop on a remote machine with a lightweight desktop interface. Magic! Furthermore, this template package provides very nice ROS2 functionality like syntax highlight and template code generation. 
-
-**All ROS2 packages should go into the `src/` folder. Create them with `ros2 pkg create...`.**
-
-**The devcontainer tries to install all dependencies of the workspace automatically as much as possible, and also tries to build the workspace when it is created, to speed up later colcon builds.**
-
-### References
-
-1. [ros2-teaching-ws](https://github.com/LCAS/ros2-teaching-ws)
-2. [Get Started with Dev Containers in VS Code](https://youtu.be/b1RavPr_878?si=ADepc_VocOHTXP55)
+    It is common to have this error notice when building the workspace during Step 3:
+    
+    ```bash
+    CMake Error at CmakeLists.txt:16 (find packages)
+    ```
+    
+    In this case, please try the following methods in order:
+       
+   (1) Make sure that you have this package installed:
+          
+           ```bash     
+           sudo apt install ros-${ROS_DISTRO}-ament-cmake-clang-format
+           ```
+           
+           ```bash
+           sudo apt install ros-humble-ament-cmake-clang-format
+           ```
+          
+   (2) Authorise permissions to edit the workspace directory. Try giving read/write permission of the workspace to all users using:
+          
+           ```bash
+           cd ~/{ROS2_WORKSPACE}
+           sudo chmod 777 -R .
+           ```
+          
+   (3) Then build using colcon build in the current directory.
+          
+           ```bash
+           cd ~/{ROS2_WORKSPACE} && $ colcon build
+           source ~/.bashrc
+           ```

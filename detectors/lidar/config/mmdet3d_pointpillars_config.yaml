@@ -1,0 +1,7 @@
+mmdet3d_node:
+  ros__parameters:
+    model_path: '/home/developer/aoc_strawberry_scenario_ws/src/external_packages/mmdetection3d/pointpillars_hv_secfpn_8xb6-160e_kitti-3d-3class.py'
+    weights_path: '/home/developer/aoc_strawberry_scenario_ws/src/external_packages/mmdetection3d/hv_pointpillars_secfpn_6x8_160e_kitti-3d-3class_20220301_150306-37dc2420.pth'
+    device: 'cuda:0'
+    point_cloud_topic: '/back_lidar/points'
+    bounding_box_topic: '/lidar_detected_bounding_boxes'

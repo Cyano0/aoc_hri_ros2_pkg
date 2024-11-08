@@ -1,0 +1,11 @@
+tracker_with_cloud_node:
+  ros__parameters:
+    camera_info_topic: "/back/zed_node_0/depth/camera_info"
+    lidar_topic: "/back_lidar/points"
+    yolo_result_topic: "/back_yolo_result_for_cloud"
+    yolo_3d_result_topic: "/yolo_3d_result"
+    subscription_topic: "/back_yolo_result"
+    cluster_tolerance: 0.9
+    voxel_leaf_size: 0.2
+    min_cluster_size: 10
+    max_cluster_size: 25000

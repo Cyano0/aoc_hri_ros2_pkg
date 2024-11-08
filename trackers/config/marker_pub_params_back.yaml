@@ -1,0 +1,15 @@
+# config.yaml
+bounding_box_publisher_back:
+  ros__parameters:
+    bounding_box_color:
+      - 1.0
+      - 0.0
+      - 0.0
+      - 1.0
+    marker_scale: 0.1
+    subscription_topic: "/back_yolo_result"
+    publish_topic: "human_detection_boundingbox_back"
+    use_tracker: true
+    tracker_dt: 0.1
+    tracker_process_noise: 1e-5
+    tracker_measurement_noise: 1e-1
